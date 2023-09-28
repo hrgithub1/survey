@@ -8,7 +8,7 @@ const app = express(); // New express application 'app' generated,
 // and directs all the incomming requests to the right route-handlers
 
 app.get("/", (req, res) => {
-  res.send({ hoi: "there" });
+  res.send({ my_name_is: "HansiePansie" });
 });
 
 // app: express app
