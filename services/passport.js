@@ -40,6 +40,17 @@ passport.use(
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
       callbackURL: '/auth/google/callback',
+      // A relative url is used (being flexible for different environments)
+      // However: GoogleStrategy decides to redirect to an address using http instead of https
+      // WHY ?: Render/Heroku/... server uses a proxy or loadbalancer to make sure the correct server
+      // is addressed on the (hosting/domain) (internal) network, where the application is sited.
+      // GoogleStratgey assummes, that when any type of proxy is used for the request to go through,
+      // the request should no longer be https, because any request through proxy is inherently not trusted.
+      // SOLUTION:
+      // 1) ADD ANOTHER TRUSTED SETTING IN THE GoogleStrategy-Options (proxy: true), or
+      // 2) CHANGE THE callbackURL from relative into an absolute URL
+      // (callbackURL: 'googleRedirectURI/auth/google/callback')-> in prod.js:
+      // googleRedirectURI : 'https://render.com'
     },
     (accessToken, refreshToken, profile, done) => {
       console.log('profile ', profile);
