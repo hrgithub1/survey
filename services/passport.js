@@ -51,6 +51,7 @@ passport.use(
       // 2) CHANGE THE callbackURL from relative into an absolute URL
       // (callbackURL: 'googleRedirectURI/auth/google/callback')-> in prod.js:
       // googleRedirectURI : 'https://render.com'
+      proxy: true,
     },
     (accessToken, refreshToken, profile, done) => {
       console.log('profile ', profile);
